@@ -72,4 +72,4 @@ langic.setKey('title', 'english');
 
 License
 ----
-MIT
+Apache 2.0
