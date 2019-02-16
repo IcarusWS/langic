@@ -14,7 +14,7 @@ Langic is a website language manager using the AJAX principle
 
 Langic requires browsers with ES6 support to run.
 
-Download the repository from [Github](https://github.com/IcarusWS/langic)
+Clone the repository from [Github](https://github.com/IcarusWS/langic)
 
 ##### Configure
 1. Place the _langic.js_ file into your scripts folder
