@@ -1,0 +1,16 @@
+{
+    "name": "langic",
+    "description": "Our small AJAX website language manager",
+    "version": "1.1.0",
+    "main": "langic.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/IcarusWS/langic.git"
+    },
+    "author": "IcarusWS",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/IcarusWS/langic/issues"
+    },
+    "homepage": "https://github.com/IcarusWS/langic"
+}
