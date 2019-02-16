@@ -6,7 +6,7 @@ Langic is a website language manager using the AJAX principle
   - Change specific objects on the page
 
 ### Changes (Version 1.1.0)
-+ Added langic.setAbsolutePath() (Sets the language directory)
++ Added langic.setPath() (Sets the language directory)
 + Migrated all the utility methods to langic.util
 + Removed langic.load()
 
