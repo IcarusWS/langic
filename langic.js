@@ -1,86 +1,96 @@
 /*!
- * langic.js v1.0.0
+ * langic.js v1.1.0
  * @copyright 2019 Icarus, Inc.
  */
 
 // This script uses ES6 code at some instances. If you want to use the fully supported ES5 script, try using langic.old.js
 
-/* langic object */
 var langic = {};
 
-// this proporty object contains the latest stored version of all languages
 langic.latest = {};
 
-// this method will change the language of a page
+langic.path = "/languages/";
+
+langic.fileExtension = '.lang.json';
+
+langic.util = {};
+
 langic.setLanguage = async function(language)
 {
-    var path = 'languages/' + language + '.lang.json';
-    var data = await __.languageFileRequest(path);
+    var path = langic.util.resolveRequestPath(language);
+    var data = await langic.util.Request(path);
     data.json().then(function(j){
-        __.applyLanguage(j);
+        langic.util.applyLanguage(j);
     })
 }
 
-// this method will load a new version of the language file and return it, so it can be used for the setKeyJSON function
-
-langic.load = async function(language)
-{ 
-    return await __.loadMem(language);
-}
-
-// this method will apply the language change to only one object, from a JSON object formatted according to the lang.json guidelines
 langic.setKey = async function(key, language)
 {
     if(!langic.latest[language])
     {
-        await __.loadMem(language);
+        await langic.util.loadLanguage(language);
     }
-    return __.changeElement(key, langic.latest[language][key]);
+    langic.util.changeDOMElement(key, langic.latest[language][key]);
+    return true;
 }
 
-
-// utility namespace: __
-var __ = {};
-
-__.languageFileRequest = function(file)
+langic.setPath = function(path)
 {
-    // ES6 Promise & fetch code
+    langic.path = path;
+    return true;
+}
+
+langic.util.Request = function(url)
+{
     return new Promise(resolve => {
-        fetch(file).then(data => {
+        fetch(url).then(data => {
             resolve(data);
         })
     });
 }
 
-// Apply the language to all objects
-__.applyLanguage = function(j)
+langic.util.applyLanguage = function(j)
 {
+    var result = [];
+    result[0] = result[1] = 0;
     for(var i = 0; i < Object.keys(j).length; i++)
     {
         var key = Object.keys(j)[i];
         var value = j[key];
-        __.changeElement(key, value);
+        var r = langic.util.changeDOMElement(key, value);
+
+        if(r)
+        {
+            result[0] += 1;
+        }
+        else {
+            result[1] += 1;
+        }
     }
-    return null;
+    langic.util.logChangeResults(results);
+    return true;
 }
 
-// Change an element
-__.changeElement = function(key, value)
+langic.util.changeDOMElement = function(key, value)
 {
-    // Set the object, referenced by the key, to the value
-    document.getElementById(key).textContent = value;
+    var element = document.getElementById(key);
+    if(element)
+    {
+        element.textContent = value;
+        return true;
+    }
+    else 
+    {   
+        return false;
+    }
 }
 
-// Loads a language from JSON, and stores it under langic->latest->language
-// returns true
-__.loadMem = async function(language)
+langic.util.loadLanguage = async function(language)
 {
     return new Promise(async (resolve) => {
-        // Get the json file
-        var path = 'languages/' + language + '.lang.json';
-        var data = await __.languageFileRequest(path);
+        var path = langic.util.resolveRequestPath(language);
+        var data = await langic.util.Request(path);
 
-        // Parse the json
         data.json().then(function(j){
             langic.latest[language] = j;
             resolve(true);
@@ -88,3 +98,12 @@ __.loadMem = async function(language)
     })
 }
 
+langic.util.resolveRequestPath = function(language)
+{
+    return langic.path + language + langic.fileExtension;
+}
+
+langic.util.logChangeResults = function(r)
+{
+    console.log('Language changed: ' + r[0] + ' successes, ' + r[1] + " failures");
+}
