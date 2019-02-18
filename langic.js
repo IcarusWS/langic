@@ -67,7 +67,7 @@ langic.util.applyLanguage = function(j)
             result[1] += 1;
         }
     }
-    langic.util.logChangeResults(results);
+    langic.util.logChangeResults(result);
     return true;
 }
 
