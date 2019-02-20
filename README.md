@@ -17,7 +17,7 @@ Langic requires browsers with ES6 support to run.
 Clone the repository from [Github](https://github.com/IcarusWS/langic)
 
 ##### Configure
-1. Place the _langic.js_ file into your scripts folder
+1. Place the _langic.js_ (under /lib, not under /src!) file into your scripts folder
 2. Create a directory called "languages" in the same directory as your HTML files (You can change the path with ```langic.setPath([path])```)
 3. In the languages folder, place your [language].lang.json files
 
