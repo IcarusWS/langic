@@ -10,8 +10,8 @@ var langic = {};
 langic.latest = {};
 
 langic.path = "/languages/";
-
-langic.fileExtension = '.lang.json';
+langic.preFileExtension = '.lang';
+langic.fileExtension = '.json';
 
 langic.util = {};
 
@@ -37,6 +37,18 @@ langic.setKey = async function(key, language)
 langic.setPath = function(path)
 {
     langic.path = path;
+    return true;
+}
+
+langic.setFileExtension = function(extension)
+{
+    langic.fileExtension = extension;
+    return true;
+}
+
+langic.setFilePreExtension = function(preextn)
+{
+    langic.preFileExtension = preextn;
     return true;
 }
 

@@ -5,10 +5,8 @@ Langic is a website language manager using the AJAX principle
   - Change the complete language of a page
   - Change specific objects on the page
 
-### Changes (Version 1.1.0)
-+ Added langic.setPath() (Sets the language directory)
-+ Migrated all the utility methods to langic.util
-+ Removed langic.load()
+### Changes (Version 1.2.0)
++ Added langic.setFileExtension and langic.setFilePreExtension
 
 ### Installation
 
@@ -51,9 +49,6 @@ To change the language of an entire page, use the langic.setLanguage([language])
     langic.setLanguage('english');
 ```
 
-##### Load a language without applying it
-_This is now deprecated (V 1.1.0)_
-
 ##### Change the language for a specific element (where the ID conforms to the key)
 To change the language of a specific element, use the langic.setKey([key], [language]), where the [key] parameter is the id of an HTML element AND the key to a language string (they need to be the same), and the language parameter is the language, according to the name of the [language].lang.json file.
 
@@ -70,6 +65,20 @@ For example, say we have a website where the languages are stored in the http://
 
 ```javascript
 langic.setPath('/files/languages/');
+```
+
+##### Change the extension
+Maybe you want to change the extension of your files from .json to something else. If this is the case, use _langic.setFileExtension([extension])_, where [extension] if the file extension (Including the dot, so: 'json' is wrong and '.json' is correct).
+
+```javascript
+langic.setFileExtension('.json');
+```
+
+##### Change the pre-extension
+If you want to change to .lang to something else, use _langic.setFilePreExtension([pre-extension]), where [pre-extension] is the pre extension (Including the dot, so: 'lang' is wrong and '.lang' is correct))
+
+```javascript
+langic.setFilePreExtension('.iclang');
 ```
 
 ### Todos
